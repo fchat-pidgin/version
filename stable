@@ -1,1 +1,1 @@
-{ "version": { "full": "0.6.0", "major": 0, "minor": 6, "bugfix": 0 }, "timestamp": "2016-07-10T15:54:40Z", "summary": "Just for testing, ladida, yadda yadda"}
+{ "version": { "full": "0.6.0", "major": 0, "minor": 6, "bugfix": 0 }, "timestamp": "2016-07-10T17:19:34Z", "summary": "Character names are colored according to their gender, more control over your channels, fixed memory leaks and more!"}
