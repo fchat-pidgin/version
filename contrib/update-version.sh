@@ -24,11 +24,9 @@ FINISHED=0
 while [ $FINISHED -eq 0 ]; do
    $EDITOR $TEMP_FILE
 
-   SUMMARY=$(tail -n +2 $TEMP_FILE | sed ':a;N;$!ba;s/\n/\\n/g')
-
    echo "Your summary:"
    echo "----------------------------------------"
-   cat $TEMP_FILE
+   tail -n +2 $TEMP_FILE
    echo "----------------------------------------"
 
 
@@ -40,11 +38,11 @@ while [ $FINISHED -eq 0 ]; do
    fi
 done
 
+SUMMARY=$(tail -n +2 $TEMP_FILE | sed ':a;N;$!ba;s/\n/\\n/g')
 OUTPUT=$(printf '{ "version": { "full": "%s", "major": %s, "minor": %s, "bugfix": %s }, "timestamp": "%s", "summary": "%s"}' "$NEW_VERSION" "${VERSION_PARTS[0]}" "${VERSION_PARTS[1]}" "${VERSION_PARTS[2]}" "$TIMESTAMP" "$SUMMARY")
 
 echo "------------------------------------"
-cat "$OUTPUT"
-echo
+echo "$OUTPUT"
 echo "------------------------------------"
 echo
 
