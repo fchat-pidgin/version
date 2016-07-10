@@ -54,6 +54,12 @@ then
 fi
 
 git checkout gh-pages > /dev/null
+
+if [[ $? != "0" ]]; then
+   echo "Error switching branches. Did you make any local changes?"
+   exit 1
+fi
+
 echo $OUTPUT > $TARGET_FILE
 git commit $TARGET_FILE -m "Update to $NEW_VERSION"
 git push origin gh-pages
