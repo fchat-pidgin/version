@@ -40,11 +40,10 @@ while [ $FINISHED -eq 0 ]; do
    fi
 done
 
-printf -v OUTPUT '{ "version": { "full": "%s", "major": %s, "minor": %s, "bugfix": %s }, "timestamp": "%s", "summary": "%s"}' "$NEW_VERSION" "${VERSION_PARTS[0]}" "${VERSION_PARTS[1]}" "${VERSION_PARTS[2]}" "$TIMESTAMP" "$SUMMARY"
+OUTPUT=$(printf '{ "version": { "full": "%s", "major": %s, "minor": %s, "bugfix": %s }, "timestamp": "%s", "summary": "%s"}' "$NEW_VERSION" "${VERSION_PARTS[0]}" "${VERSION_PARTS[1]}" "${VERSION_PARTS[2]}" "$TIMESTAMP" "$SUMMARY")
 
-echo "New version written to $TARGET_FILE!"
 echo "------------------------------------"
-cat $TARGET_FILE
+cat "$OUTPUT"
 echo
 echo "------------------------------------"
 echo
