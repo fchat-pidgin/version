@@ -18,7 +18,7 @@ if [[ $TARGET_FILE != "stable" ]]; then
 fi
 
 TEMP_FILE=$(mktemp)
-echo "# Write a short summary of the changes/fixes in this update" > $TEMP_FILE
+echo -e "# Write a short summary of the changes/fixes in this update\n" > $TEMP_FILE
 
 FINISHED=0
 while [ $FINISHED -eq 0 ]; do
@@ -30,7 +30,13 @@ while [ $FINISHED -eq 0 ]; do
    echo "----------------------------------------"
 
 
-   read -p "Are you finished editing the summary? (y/N) " -n 1 -r
+   if [[ $(tail -n +2 $TEMP_FILE) == "" ]]; then
+      echo "Empty summary, aborting ..."
+      exit 0
+   fi
+
+   read -rep 'Are you finished editing the summary? (y/N) ' -n 1
+   echo
 
    if [[ $REPLY =~ ^[Yy]$ ]]
    then
@@ -46,7 +52,8 @@ echo "$OUTPUT"
 echo "------------------------------------"
 echo
 
-read -p "Are you sure you want to push this new version ($NEW_VERSION)? (y/N) " -n 1 -r
+read -rep "Are you sure you want to push this new version ($NEW_VERSION)? (y/N) " -n 1
+echo
 
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -61,6 +68,6 @@ if [[ $? != "0" ]]; then
 fi
 
 echo $OUTPUT > $TARGET_FILE
-git commit $TARGET_FILE -m "Update to $NEW_VERSION"
-git push origin gh-pages
+git commit $TARGET_FILE -m "Update to $NEW_VERSION" > /dev/null
+git push origin gh-pages > /dev/null
 git checkout master > /dev/null
