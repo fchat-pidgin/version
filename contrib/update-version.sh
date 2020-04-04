@@ -9,6 +9,9 @@ TARGET_FILE=$1
 NEW_VERSION=$2
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
+#Remove leading 'v' if provided
+NEW_VERSION=${NEW_VERSION#v}
+
 # Split version number
 IFS='.' read -ra VERSION_PARTS <<< "$NEW_VERSION"
 
